@@ -2,7 +2,7 @@ var express = require("express");
 var mongoose = require("mongoose");
 var config = require('./config/config');
 var User = require('./model/user.js')
-var email_service = require('../email_service')
+var email_service = require('./email_service')
 
 var app = express();
 
@@ -20,3 +20,20 @@ app.post('/register', function(req, res) {
         }
     )
 });
+
+app.get('/heartbeat', function(req, res) {
+	res.send(new Date());
+})
+
+
+module.exports = {
+	start: function () {
+		app.listen(config.port, function(err) {
+			if (err) {
+				return console.error(err);
+			}
+
+			console.log("[API] API service start listening on port " + config.port);
+		})
+	}
+}
