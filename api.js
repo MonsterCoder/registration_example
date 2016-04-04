@@ -1,10 +1,13 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var config = require('./config/config');
-var User = require('./model/user.js')
-var email_service = require('./email_service')
+var User = require('./model/user.js');
+var bodyParser = require('body-parser');
+var email_service = require('./email_service');
 
 var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.post('/register', function(req, res) {
     var user = new User(req.body);
@@ -16,7 +19,7 @@ app.post('/register', function(req, res) {
     		return res.json({success: true})
     	},
         function(err) {
-    		return res.status(400).json({sucess: false, error: err})
+    		return res.status(400).json({sucess: false, data: req.body, error: err})
         }
     )
 });
