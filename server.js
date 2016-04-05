@@ -1,8 +1,7 @@
 var morgan = require('morgan')
 var mongoose = require('mongoose')
 var config = require('./config/config')
-var cluster = require('cluster')
-var api_service = require('./api')
+var api_service = require('./src/api')
 
 mongoose.connect(config.database, function (err) {
 	if (err) {

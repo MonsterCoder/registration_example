@@ -45,12 +45,9 @@ EmailService.prototype.send_welcome_email = function(customer) {
 			}
 			self.ch = ch;
 			ch.on("error", function(err) { console.error(err)})
-    	
-          
             send_to_queue(self.ch, email_queue, customer.email)
       })
     }
-
 }
 
 function send_to_queue(ch, q_name, content) {
