@@ -1,6 +1,6 @@
 var amqp = require('amqplib/callback_api')
 var EventEmitter = require('events').EventEmitter
-var config = require('./config/config');
+var config = require('../config/config');
 var email_queue = "EMAIL"
 var util = require('util'); 
 var offlinePubQueue = []
@@ -43,9 +43,9 @@ EmailService.prototype.send_welcome_email = function(customer) {
 			if (err) {
 				return console.error(err);
 			}
-			self.ch = ch;
-			ch.on("error", function(err) { console.error(err)})
-            send_to_queue(self.ch, email_queue, customer.email)
+        self.ch = ch;
+        ch.on("error", function(err) { console.error(err)});
+        send_to_queue(self.ch, email_queue, customer.email)
       })
     }
 }
