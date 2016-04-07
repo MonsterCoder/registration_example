@@ -31,7 +31,7 @@ EmailService.prototype.start = function() {
   	return self;
 }
 
-EmailService.prototye.close = function() {
+EmailService.prototype.close = function() {
   this.removeAllListeners();
   if (conn) {
     conn.close();
@@ -79,7 +79,7 @@ EmailService.prototype.process = function(queuename, onMessage) {
       if (err) {
         return console.log(err);
       }
-          ch.consume(queuename, work, { noAck: false })
+      ch.consume(queuename, work, { noAck: false })
   })
 })}
 
@@ -93,9 +93,8 @@ function send_to_queue(ch, q_name, content) {
     })
 }
 
-var service = new EmailService().start();
 
-module.exports = service;
+module.exports = EmailService;
 
 
 

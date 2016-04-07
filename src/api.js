@@ -3,7 +3,8 @@ var mongoose = require("mongoose");
 var config = require('../config/config');
 var User = require('../model/user.js');
 var bodyParser = require('body-parser');
-var email_service = require('./email_service');
+var EmailService = require('./email_service');
+var email_service = new EmailService().start();
 
 var app = express();
 app.use(bodyParser.json());
