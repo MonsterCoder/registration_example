@@ -1,13 +1,28 @@
-db:
-  image: mongo:3
-mq:
-  image: rabbitmq:3
-api:
-  build: .
-  ports:
-    - "3000:3000"
-  links:
-    - db
-    - mq
-  environment:
-    - NODE_ENV=development
+version: '2'
+
+services:
+  db:
+    image: mongo:3
+  mq:
+    image: rabbitmq:3
+  api:
+    build: .
+    image: monstercoder/api
+    ports:
+      - "3000:3000"
+    links:
+      - db
+      - mq
+    environment:
+      - NODE_ENV=development
+  worker:
+    image:  monstercoder/api
+    depends_on: 
+      - api
+    links:
+      - db
+      - mq
+    environment:
+      - EMAIL_SERVICE='Gmail'
+      - EMAIL_USER='example_name@gmail.com'
+      - EMAIL_PASS='abcdefghijklmnopqrst'
